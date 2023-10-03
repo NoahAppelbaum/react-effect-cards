@@ -1,0 +1,8 @@
+body {
+  background-color: green;
+}
+
+.Table button {
+  display: block;
+  margin: 10px auto;
+}
