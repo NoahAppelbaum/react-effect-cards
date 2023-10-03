@@ -7,7 +7,7 @@ import "./Card.css";
  */
 function Card({ card }) {
   return (
-    <div className="Card">
+    <div className="Card" style={{ transform: `rotate(${Math.random() * 365}deg)` }}>
       <img src={card.image} alt={`${card.value} of ${card.suit}`} />
     </div>
   );

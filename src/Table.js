@@ -21,6 +21,7 @@ function Table() {
   const unDrawable = (isShuffling || deck?.remaining === 0);
   const unShuffleable = (!deck || isShuffling);
 
+  //Get Deck on load
   useEffect(() => {
     async function getDeck() {
       const response = await fetch(`${BASE_URL}/new/shuffle`);
@@ -31,14 +32,20 @@ function Table() {
     getDeck();
   }, []);
 
+  //Draw card (callback for draw button)
   async function drawCard() {
     const response = await fetch(`${BASE_URL}/${deck.id}/draw`);
     const drawData = await response.json();
 
     setCards(curr => [...curr, ...drawData.cards]);
     setDeck(curr => ({ ...curr, remaining: drawData.remaining }));
+
+    if (drawData.remaining === 0) {
+      alert("No cards remaining!");
+    }
   }
 
+  //Shuffle deck and clear cards (callback for shuffle button)
   async function shuffleDeck() {
     setIsShuffling(true);
     setCards([]);
@@ -54,7 +61,9 @@ function Table() {
       <button onClick={drawCard} disabled={unDrawable}>Draw a Card</button>
       <p>{deck ? `${deck.remaining} cards remaining in deck ${deck.id}` : ""}</p>
       <button onClick={shuffleDeck} disabled={unShuffleable}>Shuffle Deck</button>
-      {cards.map(c => <Card key={c.code} card={c} />)}
+      <div className="Table-card-area">
+        {cards.map(c => <Card key={c.code} card={c} />)}
+      </div>
     </div>
   );
 }

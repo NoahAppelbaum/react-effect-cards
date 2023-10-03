@@ -2,7 +2,12 @@ body {
   background-color: green;
 }
 
+
 .Table button {
   display: block;
   margin: 10px auto;
+}
+
+.Table-card-area {
+  margin-top: 200px;
 }
